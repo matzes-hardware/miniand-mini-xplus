@@ -10,17 +10,18 @@
 #
 
 all:
-	make env kernel
+	make source compiler kernel
 	exit
 
-env:
+source:
 	apt-get install git -y
-	#git clone https://github.com/linux-sunxi/linux-sunxi linux-sunxi
-	7za x linux-sunxi.7z
+	git clone git@github.com:linux-sunxi/linux-sunxi.git --depth 1
 	cd linux-sunxi; git checkout sunxi-3.0
+
+compiler:
 	# append
-	# deb http://www.emdebian.org/debian/ testing main
-	# into /etc/apt/source.list
+	#    deb http://www.emdebian.org/debian/ testing main
+	# to /etc/apt/source.list
 	# apt-get update
 	apt-get install emdebian-archive-keyring -y
 	apt-get install gcc-4.4-arm-linux-gnueabi build-essential --force-yes
