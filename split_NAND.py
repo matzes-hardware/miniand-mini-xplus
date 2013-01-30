@@ -42,6 +42,9 @@ def extract_partitions(s):
 				}
 		#print new
 		p.append( new )
+	
+#	f = [{"name": "mbr", "start": 0, "size": p[0]["start"]}]
+#	return f+p
 	return p
 
 def split(image, parts):
