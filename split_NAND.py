@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+#
+# reads and splits a NAND firmware image file into it's partitions
+#
+# kind of a workaround, since my fdisk doesn't recognize the NAND partitions
+#
+
 import os
 
 image = "/home/user/Downloads/Mini_Xplus_Android_4.0-1.img"
@@ -34,14 +40,36 @@ def extract_partitions(s):
 					"start": int(t[1], 16),
 					"size": int(t[2], 16),
 				}
-		print new
+		#print new
 		p.append( new )
 	return p
 
 def split(image, parts):
 	partitions = extract_partitions(parts)
+
+	imgbase = os.path.basename(image).replace(".img", "")
+	dir = os.path.dirname(image)
 	
+	img = open(image, "rb")
+	c = ord("a")
+	hundred_megabyte = 100*(1024**2)
+	for partition in partitions:
+		print "extracting "+str(partition["size"])+" bytes from partition "+partition["name"],
+		img.seek( partition["start"] )
+		outname = os.path.join(dir, imgbase+"-nand"+chr(c)+"-"+partition["name"]+".img")
+		c += 1
+		out = open(outname, "wb")
+		remaining = partition["size"]
+		while remaining > 0:
+			if remaining > hundred_megabyte:
+				size = hundred_megabyte
+			else:
+				size = remaining
+			out.write( img.read(size) )
+			remaining -= size
+			print ".",
+		out.close()
+		print str(os.path.getsize(outname))+" bytes written"
+	img.close()
 
 split(image, partitions)
-
-print os.path.dirname(image)
