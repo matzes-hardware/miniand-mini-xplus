@@ -16,7 +16,7 @@ all:
 source:
 	apt-get install git -y
 	git clone git@github.com:linux-sunxi/linux-sunxi.git --depth 1
-	cd linux-sunxi; git checkout sunxi-3.0
+	cd linux-sunxi; git checkout sunxi-3.0; rm .git -Rf
 
 compiler:
 	# append
