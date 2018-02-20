@@ -1,0 +1,13 @@
+#!/bin/bash
+
+here=$(dirname "$0")
+
+kernel="/home/code/kernel/linux"
+target="$here/kernel"
+union="$here/kernel_union"
+
+cd $here
+unionfs-fuse -o cow $target=RW:$kernel=RO $union
+
+mount | grep unionfs
+
