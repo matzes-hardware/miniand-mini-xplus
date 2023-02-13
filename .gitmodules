@@ -4,3 +4,6 @@
 [submodule "u-boot/u-boot"]
 	path = u-boot/u-boot
 	url = https://github.com/open-source-code-archive/u-boot.git
+[submodule "libcedarx"]
+	path = libcedarx
+	url = https://github.com/willswang/libcedarx
