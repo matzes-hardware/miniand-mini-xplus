@@ -1,3 +1,6 @@
+[submodule "kernel/linux-sunxi"]
+	path = kernel/linux-sunxi
+	url = https://github.com/open-source-code-archive/linux.git
 [submodule "u-boot/u-boot"]
 	path = u-boot/u-boot
 	url = https://github.com/open-source-code-archive/u-boot.git
